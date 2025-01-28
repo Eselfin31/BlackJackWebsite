@@ -92,7 +92,7 @@ The game is fully responsive and works on:
 ## 👨‍💻 Author
 
 **Матвей Алейник Сергеевич**
-- GitHub: [@Eselfins](https://github.com/Eselfins)
+- GitHub: [@Eselfin31](https://github.com/Eselfin31)
 
 ## 📄 License
 
