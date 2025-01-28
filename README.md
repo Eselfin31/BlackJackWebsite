@@ -2,8 +2,6 @@
 
 A stylish and interactive Blackjack game built with HTML, CSS, and JavaScript. Features a modern UI design with smooth animations and visual effects.
 
-![Blackjack Game Screenshot](screenshot.png)
-
 ## 🎯 Features
 
 - **Modern Design**: Clean and responsive user interface
