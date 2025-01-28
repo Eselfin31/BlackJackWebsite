@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="game-container">
+            <div class="dealer-area">
+                <h2>🎩 Дилер: <span id="dealer-sum">0</span></h2>
+                <div id="dealer-cards" class="cards-container"></div>
+            </div>
+
+            <div class="player-area">
+                <h2>👤 Игрок: <span id="player-sum">0</span></h2>
+                <div id="player-cards" class="cards-container"></div>
+            </div>
+
+            <div class="controls">
+                <button id="start-btn" class="game-btn">Начать игру</button>
+                <button id="hit-btn" class="game-btn" disabled>Взять карту</button>
+                <button id="stand-btn" class="game-btn" disabled>Остановиться</button>
+                <button id="rules-btn" class="game-btn rules-btn">Правила игры</button>
+                <button id="stats-btn" class="game-btn stats-btn">📊 Статистика</button>
+            </div>
+
+            <div class="stats">
+                <p>Баланс: $<span id="balance">1000</span></p>
+                <div class="bet-controls">
+                    <input type="number" id="bet-amount" min="10" max="1000" value="10" step="10">
+                    <button id="place-bet" class="game-btn">Сделать ставку</button>
+                </div>
+            </div>
+
+            <div id="message" class="message"></div>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <div class="info-container">
+            <h2>О игре Blackjack</h2>
+            <div class="info-block">
+                <h3>Правила игры:</h3>
+                <ul>
+                    <li>Цель игры - набрать сумму карт ближе к 21, чем у дилера, не превысив это число</li>
+                    <li>Числовые карты (2-10) имеют номинальное значение</li>
+                    <li>Валет (J), Дама (Q) и Король (K) стоят 10 очков</li>
+                    <li>Туз (A) может стоить 1 или 11 очков</li>
+                    <li>Блэкджек (21 очко с первых двух карт) оплачивается 3 к 2</li>
+                </ul>
+            </div>
+
+            <div class="info-block">
+                <h3>Технические детали:</h3>
+                <ul>
+                    <li>Игра разработана с использованием чистого JavaScript (ES6+)</li>
+                    <li>Использована объектно-ориентированная архитектура</li>
+                    <li>Анимации реализованы с помощью CSS3</li>
+                    <li>Изображения карт загружаются из Deck of Cards API</li>
+                    <li>Адаптивный дизайн для всех устройств</li>
+                </ul>
+            </div>
+
+            <div class="info-block">
+                <h3>Логика игры:</h3>
+                <ul>
+                    <li>Автоматическая обработка значений тузов (1/11)</li>
+                    <li>Дилер обязан брать карты до 17 очков</li>
+                    <li>Реализована система ставок и баланса</li>
+                    <li>Автоматическая проверка на блэкджек</li>
+                    <li>Обработка всех возможных исходов игры</li>
+                </ul>
+            </div>
+
+            <div class="info-block">
+                <h3>Особенности реализации:</h3>
+                <ul>
+                    <li>Асинхронная раздача карт с анимацией</li>
+                    <li>Динамическое обновление счета и баланса</li>
+                    <li>Интерактивные элементы управления</li>
+                    <li>Визуальная обратная связь для всех действий</li>
+                    <li>Защита от некорректных ставок</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="rules-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>🎮 Правила игры</h2>
+            <div class="rules-text">
+                <p>• Цель игры - набрать сумму карт ближе к 21, чем у дилера</p>
+                <p>• Карты от 2 до 10 имеют номинальное значение</p>
+                <p>• Валет, Дама и Король стоят 10 очков</p>
+                <p>• Туз может стоить 1 или 11 очков</p>
+                <p>• Если сумма карт больше 21 - это перебор</p>
+                <p>• Дилер обязан брать карты, пока сумма меньше 17</p>
+                <p>• Блэкджек (21 с первых двух карт) оплачивается 3 к 2</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="stats-modal" class="modal">
+        <div class="modal-content stats-modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>📊 Статистика игры</h2>
+            <p class="stats-warning">⚠️ Внимание: статистика сбрасывается после перезапуска сайта</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Игр сыграно:</span>
+                    <span class="stat-value" id="games-played">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Побед:</span>
+                    <span class="stat-value" id="wins">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Блэкджеков:</span>
+                    <span class="stat-value" id="blackjacks">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Процент побед:</span>
+                    <span class="stat-value" id="win-rate">0%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Общий выигрыш:</span>
+                    <span class="stat-value" id="total-winnings">$0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Крупнейший выигрыш:</span>
+                    <span class="stat-value" id="biggest-win">$0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Echo Labs | Разработано Eselfins (Матвей Алейник Сергеевич) </p>
+        <h1>♠️♥️♣️♦️</h1>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html> 
